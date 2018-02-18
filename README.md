@@ -112,9 +112,7 @@ local> docker exec -it <CONTAINER ID> bash
 |-it|コンソールに結果を出力|docker run -it --name "test" centos /bin/cal|
 |--rm|コンテナをexitした時に自動的にコンテナを削除|docker run -it --name "test" centos /bin/cal|
 |--name|コンテナ名を指定|docker run --name "test" centos|
-|-net|使用するネットワークを指定する
-noneの場合ネットワークが割り当てられない。
-hostを使用する場合ホストのIPを使用する。→でも外部からはコンテナにつながらない||
+|-net|使用するネットワークを指定する\n noneの場合ネットワークが割り当てられない。\n hostを使用する場合ホストのIPを使用する。→でも外部からはコンテナにつながらない||
 |-d|バッググラウンド実行|docker run -d centos|
 |-p host:cont|ポートフォワーディング|docker run -d -p 8080:80 httpd|
 |--add-host|ホスト名とIPを指定|docker run -it --add-host=test.com:192.168.1.1 centos|
@@ -147,8 +145,18 @@ local> docker run -it --name test --net=user_network --ip=192.168.56.100 -d cent
 
 
 # Docker Compose
-### サンプル
+### コンテナ作成
 ```
 local> docker-compose up -d
 ```
+
+### コンテナ作成
+```
+local> docker-compose up -d
+```
+
+#### 参考サイト
+* https://qiita.com/aild_arch_bfmv/items/d47caf37b79e855af95f
+* https://qiita.com/prgseek/items/e557a371d7bd1f57b9b1
+* https://knowledge.sakura.ad.jp/5736/
 

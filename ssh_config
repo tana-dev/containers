@@ -15,3 +15,5 @@ Host d-db
 	IdentityFile ~/.ssh/id_rsa
     User         tanaka-shu
 	Port         2203
+
+StrictHostKeyChecking no

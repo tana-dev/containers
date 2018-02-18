@@ -2,6 +2,7 @@ version: '2'
 services:
   # jumphost
   jumphost:
+    build: ./jumphost
     image: jumphost
     container_name: 'jumphost'
     ports:
@@ -9,8 +10,13 @@ services:
     networks:
       my_net:
         ipv4_address: 192.168.56.100
+    hostname: jumphost
+    tty: true
+    privileged: true
+    command: /sbin/init
   # web
   web:
+    build: ./web
     image: web
     container_name: 'web'
     ports:
@@ -19,8 +25,13 @@ services:
     networks:
       my_net:
         ipv4_address: 192.168.56.101
+    hostname: web
+    tty: true
+    privileged: true
+    command: /sbin/init
   # db
   db:
+    build: ./db
     image: db
     container_name: 'db'
     ports:
@@ -31,6 +42,10 @@ services:
     networks:
       my_net:
         ipv4_address: 192.168.56.102
+    hostname: db
+    tty: true
+    privileged: true
+    command: /sbin/init
 networks:
   my_net:
     driver: bridge
@@ -41,3 +56,4 @@ networks:
       config:
       - subnet: 192.168.56.0/24
         gateway: 192.168.56.1
+
