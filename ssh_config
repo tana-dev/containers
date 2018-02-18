@@ -1,0 +1,17 @@
+Host d-jumphost
+    Hostname     localhost
+	IdentityFile ~/.ssh/id_rsa
+    User         tanaka-shu
+	Port         2201
+
+Host d-web
+    Hostname     localhost
+	IdentityFile ~/.ssh/id_rsa
+    User         tanaka-shu
+	Port         2202
+
+Host d-db
+    Hostname     localhost
+	IdentityFile ~/.ssh/id_rsa
+    User         tanaka-shu
+	Port         2203
