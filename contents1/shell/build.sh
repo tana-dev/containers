@@ -1,5 +1,5 @@
 # build
-cd ./jumphost
+cd ../jumphost
 docker build -t jumphost ./
 
 cd ../web

@@ -145,14 +145,39 @@ local> docker run -it --name test --net=user_network --ip=192.168.56.100 -d cent
 
 
 # Docker Compose
-### コンテナ作成
+### YAMLに「build:」があれば、そのイメージをまとめてビルド
 ```
-local> docker-compose up -d
+docker-compose build
 ```
 
-### コンテナ作成
+### YAMLに「image:」があれば、そのイメージをまとめてプル
 ```
-local> docker-compose up -d
+docker-compose pull
+```
+
+### docker-compose build, docker-compose pullをした後にdocker run
+```
+docker-compose up -d
+```
+
+### 個別のサービスを指定することもできる。依存関係がある場合は関係するコンテナすべてが起動するので、この場合は redmine と mysql が両方起動する
+```
+docker-compose up -d redmine
+```
+
+### 関係するコンテナすべての出力を表示
+```
+docker-compose logs
+```
+
+### 関係するコンテナをまとめて終了
+```
+docker-compose stop
+```
+
+### 関係するコンテナをまとめて削除
+```
+docker-compose rm
 ```
 
 #### 参考サイト
