@@ -10,13 +10,17 @@ local> docker pull centos:7
 local> docker run -it centos:7 bash
 ```
 
-### イメージ確認
+### イメージ操作
 #### イメージ一覧
 ```
 local> docker images
 ```
+#### イメージ削除
+```
+local> docker rmi <IMAGE ID>
+```
 
-### コンテナ確認
+### コンテナ操作
 #### 実行中のコンテナのみ表示する
 ```
 local> docker ps
@@ -27,26 +31,9 @@ local> docker ps
 local> docker ps -a
 ```
 
-### ネットワーク確認
-#### ネットワーク一覧
-```
-local> docker network ls
-```
-
-#### ネットワーク情報閲覧
-```
-local> docker network inspect <NETWORK NAME>
-```
-
-### 削除
 #### コンテナ削除
 ```
 local> docker rm --force <CONTAINER ID>
-```
-
-#### イメージ削除
-```
-local> docker rmi <IMAGE ID>
 ```
 
 #### 動いているコンテナ以外全て消す
@@ -59,6 +46,29 @@ local> docker rm $(docker ps -a -q)
 local> docker rm $(docker ps -aq)
 ```
 
+### ネットワーク操作
+#### ネットワーク一覧
+```
+local> docker network ls
+```
+
+#### ネットワーク情報閲覧
+```
+local> docker network inspect <NETWORK NAME>
+```
+
+#### ネットワーク作成
+```
+local> docker network create <NETWORK NAME>
+local> docker network create --subnet=192.168.56.0/24 <NETWORK NAME>
+```
+
+#### ネットワーク削除
+```
+local> docker network rm <NETWORK NAME>
+```
+
+
 ### buildしてrun
 #### build
 ```
@@ -68,6 +78,13 @@ local> docker build -t <CONTAINER NAME> ./
 #### run
 ```
 local> docker run --rm -it <CONTAINER NAME> bash
+docker run --privileged \ #特権。SElinuxが有効なときに必要。
+           -h httpd2 \    #ホスト名
+           -d \           #デタッチした状態
+           -p 8080:80 \   #ポートの指定、ホスト側:コンテナ側
+           --name [new-container-name] \ #新しく作るコンテナ名
+           [new-image-name] \ #コンテナの元にするイメージ
+            /sbin/init \  #コンテナで起動するプログラム
 ```
 
 ### buildしてコンテナ立ち上げてexec
@@ -79,6 +96,8 @@ local> docker build -t <CONTAINER NAME> ./
 #### 特権モードでコンテナ起動
 ```
 local> docker run -it --rm --privileged -d <CONTAINER NAME> /sbin/init
+local> docker run -it --rm --privileged -d --net my_net -p 8880:80 -h web --name "web" <CONTAINER NAME> /sbin/init
+local> docker run -it --rm --privileged -d --net my_net --ip=192.168.56.100 -h web --name "web" <CONTAINER NAME> /sbin/init
 ```
 
 #### exec
@@ -86,7 +105,38 @@ local> docker run -it --rm --privileged -d <CONTAINER NAME> /sbin/init
 local> docker exec -it <CONTAINER ID> bash
 ```
 
-### その他サンプル
+### その他
+#### runオプション
+|オプション|説明|例|
+|:--|:--|:--|
+|-it|コンソールに結果を出力|docker run -it --name "test" centos /bin/cal|
+|--rm|コンテナをexitした時に自動的にコンテナを削除|docker run -it --name "test" centos /bin/cal|
+|--name|コンテナ名を指定|docker run --name "test" centos|
+|-net|使用するネットワークを指定する
+noneの場合ネットワークが割り当てられない。
+hostを使用する場合ホストのIPを使用する。→でも外部からはコンテナにつながらない||
+|-d|バッググラウンド実行|docker run -d centos|
+|-p host:cont|ポートフォワーディング|docker run -d -p 8080:80 httpd|
+|--add-host|ホスト名とIPを指定|docker run -it --add-host=test.com:192.168.1.1 centos|
+|--dns|DNSサーバを指定|docker run --dns=192.168.1.1 httpd|
+|--mac-address|MACアドレスを指定|docker run -it --mac-address="92:d0..." centos|
+|--cpu-shares|CPU配分 (全体で1024)|docker run --cpu-shares=512 centos|
+|--memory|メモリの上限|docker run --memory=512m centos|
+|-v|ディレクトリの共有|docker run -v /c/Users/src:/var/www/html httpd|
+|-e|環境変数を設定|docker run -it -e foo=bar centos /bin/bash|
+|--env-file|環境変数リストから設定|docker run -it --env-file=env_list centos /bin/bash|
+|-w|作業ディレクトリを指定|docker run -it -w=/tmp/work centos /bin/bash|
+
+#### 参考サイト
+##### runオプション
+* https://qiita.com/wMETAw/items/34ba5c980e2a38e548db
+* https://qiita.com/umchifre/items/31d9533049c591569279
+##### docker概念
+* https://morizyun.github.io/docker/about-docker-command.html
+##### docker compose
+* https://qiita.com/y_hokkey/items/d51e69c6ff4015e85fce
+
+### サンプル
 ```
 local> docker run --name mysql -e MYSQL_ROOT_PASSWORD=root -d -p 3306:3306 mysql:5.6
 local> docker run --name apache -d -p 8080:80 php:5.3-apache

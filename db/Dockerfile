@@ -15,3 +15,4 @@ ADD ./id_rsa.pub /home/tanaka-shu/.ssh/authorized_keys
 RUN chown tanaka-shu /home/tanaka-shu/.ssh/authorized_keys; chmod 600 /home/tanaka-shu/.ssh/authorized_keys
 
 CMD /usr/sbin/sshd -D && tail -f /dev/null
+

@@ -1,0 +1,19 @@
+# db
+db:
+  image: mysql
+  volumes_from:
+    - data-mysql
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: password
+# web
+web:
+  image: web
+  volumes_from:
+    - data-gitbucket
+    - data-redmine
+  links:
+    - mysql:mysql
+  ports:
+    - "80:80"
