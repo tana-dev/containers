@@ -12,6 +12,9 @@ services:
     networks:
       my_net:
         ipv4_address: 192.168.56.100
+    extra_hosts:
+     - test-db:192.168.56.101
+     - test-batch:192.168.56.102
     tty: true
     command: /usr/sbin/httpd -D FOREGROUND
   # db
@@ -28,6 +31,9 @@ services:
     networks:
       my_net:
         ipv4_address: 192.168.56.101
+    extra_hosts:
+     - test-web:192.168.56.100
+     - test-batch:192.168.56.102
   # batch
   batch:
     image: batch                       # タグやimageIDの一部
@@ -38,6 +44,9 @@ services:
     networks:
       my_net:
         ipv4_address: 192.168.56.102
+    extra_hosts:
+     - test-web:192.168.56.100
+     - test-db:192.168.56.101
     tty: true
     command: /usr/sbin/crond -n
 networks:

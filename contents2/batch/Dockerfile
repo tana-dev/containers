@@ -5,6 +5,7 @@ FROM centos:7
 ARG user="tanaka-shu"
 
 # yum install
+RUN yum update -y
 RUN yum install vim -y
 RUN yum install crontabs -y
 RUN yum install net-tools -y
