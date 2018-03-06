@@ -1,3 +1,16 @@
+# Docker install
+### mac
+#### docker for mac のインストール
+https://docs.docker.com/docker-for-mac/install/
+
+#### docker-compose のインストール
+https://github.com/docker/compose/releases
+
+### windows
+#### docker for windows のインストール
+https://docs.docker.com/docker-for-windows/
+https://qiita.com/chr/items/184b6af37d105bdad145
+
 # Docker Command
 ### centos7を持ってきてrun
 #### pull
@@ -185,3 +198,8 @@ docker-compose rm
 * https://qiita.com/prgseek/items/e557a371d7bd1f57b9b1
 * https://knowledge.sakura.ad.jp/5736/
 
+
+
+# selenium
+#https://www.kaitoy.xyz/2017/07/12/2017-selenium-headless-browsers/
+#http://vividcode.hatenablog.com/entry/web-driver-introduction-2017
