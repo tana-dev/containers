@@ -1,55 +1,42 @@
-version: '2'
+version: '3'
 services:
-  # jumphost
-  jumphost:
-    build: ./jumphost
-    image: jumphost
-    container_name: 'jumphost'
-    ports:
-      - "2201:22"
-    networks:
-      my_net:
-        ipv4_address: 192.168.56.100
-    tty: true
-    privileged: true
-    command: /sbin/init
   # web
   web:
-    build: ./web
-    image: web
-    container_name: 'web'
-    ports:
-      - "2202:22"
-      - "8880:80"
+    image: web                         # タグやimageIDの一部
+    build:
+      context: ./web                   # Dockerfileのあるディレクトリのパス
+    container_name: web                # コンテナ名
+    hostname: test-docker-web          # ホスト名
+    ports:                             # ポート
+     - 8080:80
     networks:
       my_net:
-        ipv4_address: 192.168.56.101
     tty: true
-    privileged: true
-    command: /sbin/init
+    command: /usr/sbin/httpd -D FOREGROUND
   # db
   db:
-    build: ./db
-    image: db
-    container_name: 'db'
-    ports:
-      - "2203:22"
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: password
+    image: db                          # タグやimageIDの一部
+    build:
+      context: ./db                    # Dockerfileのあるディレクトリのパス
+    container_name: db                 # コンテナ名
+    hostname: test-docker-db           # ホスト名
+    ports:                             # ポート
+     - 3306:3306
+    environment:                       # 環境変数
+      MYSQL_ROOT_PASSWORD: password    # rootユーザーパスワード
     networks:
       my_net:
-        ipv4_address: 192.168.56.102
+  # batch
+  batch:
+    image: batch                       # タグやimageIDの一部
+    build:
+      context: ./batch                 # Dockerfileのあるディレクトリのパス
+    container_name: batch              # コンテナ名
+    hostname: test-docker-batch        # ホスト名
+    networks:
+      my_net:
     tty: true
-    privileged: true
-    command: /sbin/init
+    command: /usr/sbin/crond -n
 networks:
   my_net:
-    driver: bridge
-    driver_opts:
-      com.docker.network.enable_ipv6: "true"
-    ipam:
-      driver: default
-      config:
-      - subnet: 192.168.56.0/24
-        gateway: 192.168.56.1
+
