@@ -1,7 +1,7 @@
 # Docker install
-### mac
-#### docker for mac のインストール
-https://docs.docker.com/docker-for-mac/install/
+    ### mac
+        #### docker for mac のインストール
+           https://docs.docker.com/docker-for-mac/install/
 
 #### docker-compose のインストール
 https://github.com/docker/compose/releases
