@@ -1,0 +1,30 @@
+version: '3'
+services:
+  # centos7-base
+  centos7-base:
+    build: ./centos7-base
+    image: centos7-base
+    container_name: 'centos7-base'
+    hostname: centos7-base-dokcer
+    networks:
+     - my_net
+    tty: true
+    privileged: true
+    command: /sbin/init
+  # dev
+  dev:
+    build: ./dev
+    image: dev
+    container_name: 'dev'
+    hostname: dev-docker
+    depends_on:
+      - "centos7-base"
+    ports:
+      - "8880:80"
+    networks:
+     - my_net
+    tty: true
+    privileged: true
+    command: /sbin/init
+networks:
+  my_net:
