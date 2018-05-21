@@ -24,5 +24,9 @@ RUN mkdir /home/${LINUX_USER}/Github
 RUN git clone https://github.com/tana-dev/dotfiles.git /home/${LINUX_USER}/Github/dotfiles
 RUN cd /home/${LINUX_USER}/Github/dotfiles && ./install.sh
 
+# root
+git config --global user.email "nekodanshaku27@gmail.com"
+git config --global user.name "Shunichi Tanaka"
+
 # switch
 USER root

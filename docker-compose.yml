@@ -26,5 +26,20 @@ services:
     tty: true
     privileged: true
     command: /sbin/init
+  # dev
+  selenium:
+    build: ./selenium
+    image: selenium
+    container_name: 'dev'
+    hostname: selenium-docker
+    depends_on:
+      - "centos7-base"
+    ports:
+      - "8881:80"
+    networks:
+     - my_net
+    tty: true
+    privileged: true
+    command: /sbin/init
 networks:
   my_net:
