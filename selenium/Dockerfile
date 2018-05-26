@@ -12,7 +12,7 @@ RUN yum -y install make
 # rbenv install
 RUN git clone https://github.com/rbenv/rbenv.git /root/.rbenv
 RUN echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> /root/.bash_profile
-RUN echo "eval \"$(/root/.rbenv/bin/rbenv init -)\"" >> /root/.bash_profile
+RUN echo "eval \"$(rbenv init -)\"" >> /root/.bash_profile
 #RUN /root/.rbenv/bin/rbenv init
 
 # ruby-build install
@@ -36,14 +36,7 @@ RUN cd /usr/local/src/ && tar -C /usr/local/bin/ -xzf geckodriver-v0.20.1-linux6
 RUN yum -y install firefox
 
 # gem selenium-webdriver install
-RUN /root/.rbenv/shims/gem install selenium-webdriver
+#RUN /root/.rbenv/shims/gem install selenium-webdriver
 
 # gem nokogiri install
-RUN /root/.rbenv/shims/gem install nokogiri
-
-# selenium test code
-RUN mkdir -m 777 /home/test/
-RUN cd /home/test/ && git clone https://github.com/tana-dev/selenium.git
-RUN cd /home/test/selenium/ && git config --global user.email "nekodanshaku27@gmail.com"
-RUN cd /home/test/selenium/ && git config --global user.name "Shunichi Tanaka"
-
+#RUN /root/.rbenv/shims/gem install nokogiri
