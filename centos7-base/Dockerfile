@@ -5,8 +5,8 @@ ARG LINUX_USER="tanaka-shu"
 
 # useradd
 RUN useradd ${LINUX_USER}
-RUN echo "${LINUX_USER}:${LINUX_USER}" |chpasswd
-RUN echo "tanaka-shu  ALL=(ALL)  ALL" >> /etc/sudoers
+RUN echo "${LINUX_USER}:${LINUX_USER}" | chpasswd
+RUN echo "tanaka-shu ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # インストール済みのパッケージをアップデート＆キャッシュのクリア
 RUN yum -y update && yum clean all
@@ -25,8 +25,8 @@ RUN git clone https://github.com/tana-dev/dotfiles.git /home/${LINUX_USER}/Githu
 RUN cd /home/${LINUX_USER}/Github/dotfiles && ./install.sh
 
 # root
-git config --global user.email "nekodanshaku27@gmail.com"
-git config --global user.name "Shunichi Tanaka"
+RUN git config --global user.email "nekodanshaku27@gmail.com"
+RUN git config --global user.name "Shunichi Tanaka"
 
 # switch
 USER root
