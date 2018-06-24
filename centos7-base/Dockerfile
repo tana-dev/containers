@@ -1,13 +1,5 @@
 FROM centos:7
 
-# ARG
-ARG LINUX_USER="tanaka-shu"
-
-# useradd
-RUN useradd ${LINUX_USER}
-RUN echo "${LINUX_USER}:${LINUX_USER}" | chpasswd
-RUN echo "tanaka-shu ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-
 # インストール済みのパッケージをアップデート＆キャッシュのクリア
 RUN yum -y update && yum clean all
 
@@ -18,15 +10,23 @@ RUN yum install git -y
 RUN yum install net-tools -y
 RUN yum install wget -y
 
-# user
-USER ${LINUX_USER}
-RUN mkdir /home/${LINUX_USER}/Github
-RUN git clone https://github.com/tana-dev/dotfiles.git /home/${LINUX_USER}/Github/dotfiles
-RUN cd /home/${LINUX_USER}/Github/dotfiles && ./install.sh
+# java install
+RUN yum -y install java-1.8.0-openjdk.x86_64
+RUN yum -y install java-1.8.0-openjdk-devel.x86_64
 
-# root
-RUN git config --global user.email "nekodanshaku27@gmail.com"
-RUN git config --global user.name "Shunichi Tanaka"
+# scala install
+RUN cd /usr/local/src/ && wget https://downloads.lightbend.com/scala/2.12.6/scala-2.12.6.tgz
+RUN cd /usr/local/src/ && tar xvzf scala-2.12.6.tgz
+RUN cd /usr/local/src/ && mv scala-2.12.6 /usr/local/scala
+
+# go install
+RUN cd /usr/local/src/ && wget https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz
+RUN cd /usr/local/src/ && tar -C /usr/local -xzf go1.10.2.linux-amd64.tar.gz
+
+# profile
+RUN mkdir /root/Github/
+RUN git clone https://github.com/tana-dev/dotfiles.git /root/Github/dotfiles
+RUN cd /root/Github/dotfiles && ./install.sh
 
 # switch
 USER root

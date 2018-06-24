@@ -20,26 +20,14 @@ services:
     depends_on:
       - "centos7-base"
     ports:
-      - "8880:80"
+      - "8080:8080"
+      - "8888:80"
     networks:
-     - my_net
-    tty: true
-    privileged: true
-    command: /sbin/init
-  # selenium
-  selenium:
-    build: ./selenium
-    image: selenium
-    container_name: 'selenium'
-    hostname: selenium-docker
-    depends_on:
-      - "centos7-base"
-    ports:
-      - "8881:80"
-    networks:
-     - my_net
+      - my_net
     volumes:
-     - ./selenium/source:/home/test/
+      - ./dev/src/fileshare/:/home/service/fileshare/
+      - ./dev/src/fileshare_test/:/home/test/fileshare/
+#    command: /home/service/fileshare/bin/macshare/macshare >> /home/log/fileshare/app.log 2>&1
     tty: true
     privileged: true
     command: /sbin/init
