@@ -24,14 +24,18 @@ RUN yum install make -y
 RUN yum install readline-devel -y
 RUN yum install mysql-devel -y
 RUN yum install httpd httpd-tools httpd-devel httpd-manual -y
-RUN yum install firewalld -y
+RUN yum install xorg-x11-server-Xvfb -y
+RUN yum install ImageMagick ImageMagick-devel ipa-pgothic-fonts -y
+RUN yum install firefox -y
+#RUN yum install firewalld -y
+#RUN yum groupinstall "Japanese Support" -y
 
 # setting firewalld
+#COPY ./conf/http.xml /etc/firewalld/services/http.xml
 #RUN systemctl start firewalld
 #RUN systemctl enable firewalld
 #RUN systemctl is-enabled firewalld
 #RUN firewall-cmd --permanent --zone=public --add-service=http
-COPY ./conf/http.xml /etc/firewalld/services/http.xml
 #RUN firewall-cmd --reload
 
 # rbenv clone
@@ -44,11 +48,14 @@ RUN source /etc/profile.d/rbenv.sh
 # ruby-build clone
 RUN git clone https://github.com/rbenv/ruby-build.git /usr/local/rbenv/plugins/ruby-build
 
-## ruby install
+# ruby install
 RUN /usr/local/rbenv/plugins/ruby-build/install.sh
 RUN export RBENV_ROOT="/usr/local/rbenv" && /usr/local/rbenv/bin/rbenv install 2.5.1
 RUN export RBENV_ROOT="/usr/local/rbenv" && /usr/local/rbenv/bin/rbenv global 2.5.1
 
-## install bundler by using gem
+# install bundler by using gem
 RUN /usr/local/rbenv/shims/gem install bundler
+
+# bundle install
+RUN cd /home/test/fileshare/ && bundle install
 
