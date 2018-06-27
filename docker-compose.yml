@@ -27,6 +27,7 @@ services:
     volumes:
       - ./dev/src/fileshare/:/home/service/fileshare/
       - ./dev/src/fileshare_test/:/home/test/fileshare/
+      - ./dev/src/kick/:/home/service/kick/
 #    command: /home/service/fileshare/bin/macshare/macshare >> /home/log/fileshare/app.log 2>&1
     tty: true
     privileged: true
