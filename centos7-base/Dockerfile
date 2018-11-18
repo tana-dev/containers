@@ -23,10 +23,5 @@ RUN cd /usr/local/src/ && mv scala-2.12.6 /usr/local/scala
 RUN cd /usr/local/src/ && wget https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz
 RUN cd /usr/local/src/ && tar -C /usr/local -xzf go1.10.2.linux-amd64.tar.gz
 
-# profile
-RUN mkdir /root/Github/
-RUN git clone https://github.com/tana-dev/dotfiles.git /root/Github/dotfiles
-RUN cd /root/Github/dotfiles && ./install.sh
-
 # switch
 USER root

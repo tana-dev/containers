@@ -28,6 +28,9 @@ services:
       - ./dev/src/fileshare/:/home/service/fileshare/
       - ./dev/src/fileshare_test/:/home/test/fileshare/
       - ./dev/src/kick/:/home/service/kick/
+      - ./dev/src/java/:/home/service/java/
+      - ./common/.bash_profile:/root/.bash_profile
+      - ./common/.vimrc:/root/.vimrc
 #    command: /home/service/fileshare/bin/macshare/macshare >> /home/log/fileshare/app.log 2>&1
     tty: true
     privileged: true
