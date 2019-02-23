@@ -11,7 +11,10 @@ services:
     ports:
       - "8888:80"
     volumes:
-      - ./laravel/src/laravel_practice/:/var/www/html/laravel_practice/
+      - ./laravel/src/laravel_practice/:/var/www/laravel_practice/
+      - ./laravel/src/laravel_practice/public/.htaccess:/etc/httpd/conf.d/.htaccess
+      - ./laravel/apache/laravel_practice.conf:/etc/httpd/conf.d/laravel_practice.conf
+      - ./laravel/mysql/my.cnf:/etc/my.cnf
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: test
