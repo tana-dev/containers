@@ -20,7 +20,7 @@ RUN yum install unzip -y
 
 # php
 RUN yum install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm -y
-RUN yum install --enablerepo=remi,remi-php70 php php-devel php-mbstring php-pdo php-gd php-xml php-mcrypt -y
+RUN yum install --enablerepo=remi,remi-php70 php php-devel php-mbstring php-pdo php-gd php-xml php-mcrypt php-mysqlnd -y
 
 # mysql
 RUN yum localinstall http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm -y
