@@ -1,0 +1,28 @@
+version: '3'
+services:
+  # laravel
+  laravel:
+    build: ./laravel
+    image: laravel
+    container_name: 'laravel'
+    hostname: laravel
+    networks:
+      - laravel
+    ports:
+      - "8888:80"
+    volumes:
+      - ./laravel/src/laravel_practice/:/var/www/laravel_practice/
+      - ./laravel/src/laravel_practice/public/.htaccess:/etc/httpd/conf.d/.htaccess
+      - ./laravel/apache/laravel_practice.conf:/etc/httpd/conf.d/laravel_practice.conf
+      - ./laravel/php/php.ini:/etc/php.ini
+      - ./laravel/mysql/my.cnf:/etc/my.cnf
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_DATABASE: test
+    tty: true
+    privileged: true
+    command: /sbin/init
+networks:
+  laravel:
