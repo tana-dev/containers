@@ -1,3 +1,4 @@
 laravel_practice/laravel/src/*
 basic_project/basic_all/src/*
+basic_project/basic_all/mysql_data/*
 !.gitkeep

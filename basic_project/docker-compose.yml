@@ -9,13 +9,14 @@ services:
     networks:
       - basic
     ports:
-      - "8888:80"
+      - "8889:80"
     volumes:
       - ./basic_all/src/basic/:/var/www/basic/
       - ./basic_all/src/basic/public/.htaccess:/etc/httpd/conf.d/.htaccess
       - ./basic_all/apache/basic.conf:/etc/httpd/conf.d/basic.conf
       - ./basic_all/php/php.ini:/etc/php.ini
       - ./basic_all/mysql/my.cnf:/etc/my.cnf
+      - ./basic_all/mysql_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: test
